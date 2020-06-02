@@ -8,6 +8,8 @@
 import SwiftWebUI
 import JavaScriptKit
 
+/// A container for `Route`s.
+/// Uses `location.pathname` to resolve which `Route` to render
 public struct Router : View {
     let path: [String]
     let routes: [Route]

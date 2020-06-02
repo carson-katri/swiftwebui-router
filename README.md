@@ -1,4 +1,4 @@
-# SwiftWebUI Router
+# [SwiftWebUI](https://github.com/carson-katri/SwiftWebUI) Router
 
 A simple Router for SwiftWebUI:
 
@@ -39,3 +39,42 @@ module.exports = {
 };
 ```
 Now the server will always serve your index.html, no matter the route.
+
+# Docs
+
+## `Router`
+A container for `Routes`.
+Uses `location.pathname` to resolve which `Route` to render:
+```swift
+Router {
+    ...
+}
+```
+
+## `Route`
+A map from a path to a View
+Path can contains arguments, such as `/artists/:artistId/song/:songId`:
+```swift
+Route(to: "/artists/:artistId/song/:songId") { args in
+    VStack {
+        Text("Artist: \(args["artistId"])")
+        Text("Song: \(args["songId"])")
+    }
+}
+```
+
+## Navigator
+A way to navigate without using Views:
+```swift
+Navigator.back()
+Navigator.navigateTo(["artists", "5"])
+Navigator.navigateTo("/artists/5")
+```
+
+## RouterLink
+A button that navigates to the specified path
+```swift
+RouterLink(to: "/artists") {
+    Text("Back")
+}
+```

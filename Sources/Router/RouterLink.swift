@@ -7,6 +7,7 @@
 
 import SwiftWebUI
 
+/// A button that navigates to the specified path
 public struct RouterLink<Content: View>: View {
     let destination: String
     let content: Content

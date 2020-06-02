@@ -6,6 +6,7 @@
 //
 import JavaScriptKit
 
+/// A way to navigate without using Views
 public struct Navigator {
     public static func back() {
         _ = JSObjectRef.global.history.object?.back?()

@@ -7,6 +7,8 @@
 import SwiftWebUI
 import JavaScriptKit
 
+/// A map from a path to a View
+/// Path can contains arguments, such as `/artists/:artistId/song/:songId`
 public struct Route : View {
     let path: [String]
     let content: AnyView
