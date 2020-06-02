@@ -63,7 +63,7 @@ Route(to: "/artists/:artistId/song/:songId") { args in
 }
 ```
 
-## Navigator
+## `Navigator`
 A way to navigate without using Views:
 ```swift
 Navigator.back()
@@ -71,10 +71,16 @@ Navigator.navigateTo(["artists", "5"])
 Navigator.navigateTo("/artists/5")
 ```
 
-## RouterLink
+## `RouterLink`
 A button that navigates to the specified path
 ```swift
 RouterLink(to: "/artists") {
     Text("Back")
 }
+```
+
+## `Redirect`
+A View that redirects `onAppear`
+```swift
+Redirect(to: "/")
 ```
