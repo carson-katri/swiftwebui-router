@@ -20,10 +20,7 @@ public struct Router : View {
     
     public init(_ routes: [Route]) {
         self.routes = routes
-        guard let pathname = JSObjectRef.global.location.object?.pathname.string else {
-            fatalError("Cannot access current site location")
-        }
-        self.path = pathname.split(separator: "/").map(String.init)
+        self.path = Navigator.currentPath()
     }
 
     public var body: some View {

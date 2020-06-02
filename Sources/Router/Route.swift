@@ -21,11 +21,7 @@ public struct Route : View {
     public typealias Arguments = [String:String]
     public init<Content: View>(path: String, @ViewBuilder _ content: (Arguments) -> Content) {
         self.path = path.split(separator: "/").map(String.init)
-        guard let pathname = JSObjectRef.global.location.object?.pathname.string else {
-            fatalError("Cannot access current site location")
-        }
-        
-        let currentPath = pathname.split(separator: "/").map(String.init)
+        let currentPath = Navigator.currentPath()
         if Router.routeMatches(path: currentPath, route: self.path) {
             var args = Arguments()
             for (i, component) in currentPath.enumerated() {

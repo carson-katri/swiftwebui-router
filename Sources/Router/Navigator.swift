@@ -19,4 +19,11 @@ public struct Navigator {
     public static func navigateTo(_ path: [String]) {
         navigateTo(path.joined(separator: "/"))
     }
+    
+    public static func currentPath() -> [String] {
+        guard let pathname = JSObjectRef.global.location.object?.pathname.string else {
+            fatalError("Cannot access current site location")
+        }
+        return pathname.split(separator: "/").map(String.init)
+    }
 }
