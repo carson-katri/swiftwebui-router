@@ -10,8 +10,8 @@ import JavaScriptKit
 /// A map from a path to a View
 /// Path can contains arguments, such as `/artists/:artistId/song/:songId`
 public struct Route : View {
-    let path: [String]
-    let content: AnyView
+    public let path: [String]
+    public let content: AnyView
 
     public init<Content: View>(path: String, @ViewBuilder _ content: () -> Content) {
         self.path = path.split(separator: "/").map(String.init)

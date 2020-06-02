@@ -38,7 +38,7 @@ public struct Router : View {
         }
     }
 
-    static func routeMatches(path: [String], route: [String]) -> Bool {
+    public static func routeMatches(path: [String], route: [String]) -> Bool {
         if route.count != path.count {
             return false
         }
