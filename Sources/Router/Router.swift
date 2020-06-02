@@ -15,7 +15,11 @@ public struct Router : View {
     let routes: [Route]
 
     public init(@RouterBuilder _ routes: () -> [Route]) {
-        self.routes = routes()
+        self.init(routes())
+    }
+    
+    public init(_ routes: [Route]) {
+        self.routes = routes
         guard let pathname = JSObjectRef.global.location.object?.pathname.string else {
             fatalError("Cannot access current site location")
         }
