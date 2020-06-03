@@ -11,7 +11,7 @@ import JavaScriptKit
 /// A container for `Route`s.
 /// Uses `location.pathname` to resolve which `Route` to render
 public struct Router : View {
-    let path: [String]
+    @ObservedObject private var path: Path = Path(Navigator.currentPath())
     let routes: [Route]
 
     public init(@RouterBuilder _ routes: () -> [Route]) {
@@ -20,11 +20,10 @@ public struct Router : View {
     
     public init(_ routes: [Route]) {
         self.routes = routes
-        self.path = Navigator.currentPath()
     }
 
     public var body: some View {
-        resolve(path)
+        resolve(Navigator.currentPath())
     }
 
     func resolve(_ path: [String]) -> some View {
@@ -50,5 +49,28 @@ public struct Router : View {
             }
         }
         return true
+    }
+
+    class Path: ObservableObject, Identifiable {
+        let didChange = PassthroughSubject<Void, Never>()
+
+        var currentPath: [String] = [] {
+            didSet {
+                didChange.send(())
+            }
+        }
+
+        var id: String {
+            currentPath.joined(separator: "/")
+        }
+
+        init(_ path: [String]) {
+            self.currentPath = path
+            JSObjectRef.global.history.object?.pushStateAndUpdate = .function { props in
+                let res = JSObjectRef.global.history.object?.pushState?(props[0], props[1], props[2])
+                self.currentPath = Navigator.currentPath()
+                return res ?? .undefined
+            }
+        }
     }
 }

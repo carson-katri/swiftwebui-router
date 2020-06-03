@@ -1,6 +1,6 @@
 //
 //  Navigator.swift
-//  
+//
 //
 //  Created by Carson Katri on 6/2/20.
 //
@@ -13,7 +13,11 @@ public struct Navigator {
     }
 
     public static func navigateTo(_ path: String) {
-        JSObjectRef.global.location.object?.pathname = .string(path)
+        if let pushStateAndUpdate = JSObjectRef.global.history.object?.pushStateAndUpdate {
+            _ = pushStateAndUpdate(path, "", path)
+        } else {
+            _ = JSObjectRef.global.history.object?.pushState?(path, "", path)
+        }
     }
 
     public static func navigateTo(_ path: [String]) {
